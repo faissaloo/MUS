@@ -12,10 +12,4 @@ class UrlsControllerTest < Capybara::Rails::TestCase
     post shorten_url, params: {url: "2ton.com.au"}
     assert_response :success
   end
-  
-  test "Redirects to real page" do
-    testAddr = "https://www.lainchan.org"
-    visit Url.shortenUrl(testAddr).sub("st.uk","")
-    assert_redirected_to(testAddr)
-  end
 end
