@@ -20,4 +20,13 @@ class Url < ApplicationRecord
     end
     code
   end
+  
+  def self.codeToId(code)
+    id=0
+    code.reverse.each_char do |i|
+      id*=@@validChars.length
+      id+=@@validChars.index(i)
+    end
+    return id
+  end
 end
