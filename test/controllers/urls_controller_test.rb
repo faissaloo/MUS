@@ -14,7 +14,7 @@ class UrlsControllerTest < Capybara::Rails::TestCase
   end
   
   test "Redirects to real page" do
-    testAddr = "www.lainchan.org"
+    testAddr = "https://www.lainchan.org"
     visit Url.shortenUrl(testAddr).sub("st.uk","")
     assert_redirected_to(testAddr)
   end

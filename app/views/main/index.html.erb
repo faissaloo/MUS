@@ -1,0 +1,5 @@
+<%= form_tag("/shorten", method: "post") do %>
+  <%= text_field_tag(:url, "", id: "Url") %>
+  <%= submit_tag("Shorten") %>
+<% end %>
+

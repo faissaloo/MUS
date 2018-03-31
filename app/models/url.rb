@@ -3,8 +3,7 @@ class Url < ApplicationRecord
   
   @@domain = "st.uk"
   
-  @@validChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$-_.+!*'(),,"
-  @@validCharCount="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$-_.+!*'(),,".length
+  @@validChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
   
   #Takes a URL, adds it to the database and returns the shortened URL
   def self.shortenUrl(inurl)
@@ -15,8 +14,8 @@ class Url < ApplicationRecord
   def self.idToCode(id)
     code=""
     while id != 0 do
-      code+=@@validChars[id%@@validCharCount]
-      id/=@@validCharCount
+      code+=@@validChars[id%@@validChars.length]
+      id/=@@validChars.length
     end
     code
   end
@@ -28,5 +27,9 @@ class Url < ApplicationRecord
       id+=@@validChars.index(i)
     end
     return id
+  end
+  
+  def self.getUrl(code)
+    where(id: codeToId(code)).first.longurl
   end
 end
