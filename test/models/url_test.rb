@@ -16,7 +16,6 @@ class UrlTest < ActiveSupport::TestCase
   end
   
   test "Ensure URLs are validated prior to shortening" do
-    assert Url.shortenUrl("tcp://localhost") == nil
     assert Url.shortenUrl(".") == nil
     assert Url.shortenUrl("glow in the darks") == nil
     assert Url.shortenUrl("://") == nil
