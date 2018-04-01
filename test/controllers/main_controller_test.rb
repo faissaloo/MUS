@@ -6,4 +6,9 @@ class MainControllerTest < ActionDispatch::IntegrationTest
     get Url.shortenUrl(testAddr).sub("st.uk","")
     assert_redirected_to(testAddr)
   end
+  
+  test "Non-existent redirect gives 404" do
+    get "/dank"
+    assert_response :not_found
+  end
 end
