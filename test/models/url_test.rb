@@ -14,4 +14,17 @@ class UrlTest < ActiveSupport::TestCase
     testcode = "EternalSeptember"
     assert Url.idToCode(Url.codeToId(testcode))==testcode
   end
+  
+  test "Ensure URLs are validated prior to shortening" do
+    assert Url.shortenUrl("tcp://localhost") == nil
+    assert Url.shortenUrl(".") == nil
+    assert Url.shortenUrl("glow in the darks") == nil
+    assert Url.shortenUrl("://") == nil
+    assert Url.shortenUrl("") == nil
+  end
+  
+  test "Ensure HTTP protocols are disregarded when storing" do
+    assert Url.shortenUrl("f-droid.org") == Url.shortenUrl("https://f-droid.org")
+    assert Url.shortenUrl("http://f-droid.org") == Url.shortenUrl("https://f-droid.org")
+  end
 end
