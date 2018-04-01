@@ -5,4 +5,9 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     post shorten_url, params: {url: "2ton.com.au"}
     assert_response :success
   end
+  
+  test "Invalid POST causes error" do
+    post shorten_url
+    assert_response :bad_request
+  end
 end
