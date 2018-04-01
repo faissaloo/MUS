@@ -10,4 +10,9 @@ class UrlsControllerTest < ActionDispatch::IntegrationTest
     post shorten_url
     assert_response :bad_request
   end
+  
+  test "GET fails safely" do
+    get shorten_url
+    assert_response :method_not_allowed
+  end
 end
