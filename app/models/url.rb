@@ -30,6 +30,11 @@ class Url < ApplicationRecord
   end
   
   def self.getUrl(code)
-    where(id: codeToId(code)).first.longurl
+    redirectTo=where(id: codeToId(code)).first
+    if redirectTo
+      redirectTo.longurl
+    else
+      nil
+    end
   end
 end
