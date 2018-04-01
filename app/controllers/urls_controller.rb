@@ -2,7 +2,13 @@ class UrlsController < ApplicationController
   def new
     if request.post?
       begin
-        @generated_url = request.host+Url.shortenUrl(params.require(:url))
+        shorturl = Url.shortenUrl(params.require(:url))
+        if shorturl
+          @generated_url = request.host+shorturl
+        else
+          @error_msg = "Bad request: Invalid URI given"
+          render status: :bad_request
+        end
       rescue ActionController::ParameterMissing
         @error_msg = "Bad request: A url parameter must be provided via a POST request"
         render status: :bad_request

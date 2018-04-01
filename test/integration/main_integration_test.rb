@@ -12,6 +12,6 @@ class MainIntegrationTest < Capybara::Rails::TestCase
     visit root_url
     fill_in "Url", with: '""'
     click_on "Shorten"
-    assert_response :bad_request
+    assert_text :visible, "Bad request"
   end
 end
