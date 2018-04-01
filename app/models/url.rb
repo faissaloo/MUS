@@ -1,3 +1,5 @@
+require 'uri'
+
 class Url < ApplicationRecord
   validates_presence_of :longurl
   
@@ -5,7 +7,13 @@ class Url < ApplicationRecord
   
   #Takes a URL, adds it to the database and returns the shortened URL
   def self.shortenUrl(inurl)
-      "/"+idToCode(where(longurl: inurl).first_or_create.id)
+    if inurl != ""
+      begin
+        URI.parse(inurl)
+        "/"+idToCode(where(longurl: inurl).first_or_create.id)
+      rescue URI::InvalidURIError
+      end
+    end
   end
   
   #Takes an id and creates a string corresponding to it
