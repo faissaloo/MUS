@@ -1,13 +1,11 @@
 class Url < ApplicationRecord
   validates_presence_of :longurl
   
-  @@domain = "st.uk"
-  
   @@validChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
   
   #Takes a URL, adds it to the database and returns the shortened URL
   def self.shortenUrl(inurl)
-      @@domain+"/"+idToCode(where(longurl: inurl).first_or_create.id)
+      "/"+idToCode(where(longurl: inurl).first_or_create.id)
   end
   
   #Takes an id and creates a string corresponding to it
